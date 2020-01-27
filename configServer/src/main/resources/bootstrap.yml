@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: configserver
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///Users/xjxm322/gcom_mod/cim/address/address/src/main/resources/config/addressservice

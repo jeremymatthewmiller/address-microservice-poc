@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.grainger.address</groupId>
+  <version>0.0.1-SNAPSHOT</version>
+  <artifactId>cim-parent-pom</artifactId>
+  <packaging>pom</packaging>
+
+
+  <name>cim-parent-pom</name>
+  <description>Parent Pom for the CIM microservice POC project</description>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.1.1.RELEASE</version>
+  </parent>
+  <modules>
+    <module>configServer</module>
+    <module>address</module>
+    <module>validationservice</module>
+    <module>eurekaServer</module>
+    <module>zuul</module>
+  </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.4.10</version>
+        <configuration>
+        <baseImage>java</baseImage>
+        <imageName>example</imageName>
+      </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+

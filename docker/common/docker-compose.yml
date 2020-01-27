@@ -1,0 +1,50 @@
+version: '2'
+services:
+  eurekaserver:
+   image: cim-eureka-server
+   ports:
+       - "8761:8761"
+  configserver:
+    image: cim-config-server
+    ports:
+       - "8888:8888"
+    environment:
+       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+       EUREKASERVER_PORT: 8761
+       ENCRYPT_KEY: "topsecretkey"
+  zuulserver:
+    image: cim-zuul
+    ports:
+      - "5555:5555"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_PORT: "8888"
+  addressservice:
+    image: cim-address
+    ports:
+      - "8080:8080"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8080"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_PORT: "8888"
+      ZUULSERVER_PORT: "5555"
+      ENCRYPT_KEY: "topsecretkey"
+  validationservice:
+    image: cim-validationservice
+    ports:
+      - "8082:8082"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8082"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_PORT: "8888"
+      ENCRYPT_KEY: "topsecretkey"
